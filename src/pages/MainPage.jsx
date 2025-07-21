@@ -3,7 +3,6 @@ import Button, { ShowUrlsButton } from './Button'
 import { useState } from 'react'
 import axios from 'axios';
 import ComparisonResults from './ComparisonResults';
-import API_CONFIG from '../config';
 
 
 export default function MainPage() {
@@ -19,7 +18,7 @@ export default function MainPage() {
     const handleComarisonResults = async () => {
 
         try {
-            const comparisonResults = await axios.post(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.compare}`, {
+            const comparisonResults = await axios.post("http://localhost:8080/api/compare", {
                 url1: firstUrl,
                 url2: secondUrl
             });
@@ -38,16 +37,16 @@ export default function MainPage() {
         setIsLoading(true); // start loading
 
         try {
-            const firstUrlContent = await axios.post(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.getContent}`, {
+            const firstUrlContent = await axios.post("http://localhost:8080/get-content", {
                 url: firstUrl
             });
-            const firstUrlAssicuatedLinksAndTexts = await axios.post(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.getUrlsTexts}`, {
+            const firstUrlAssicuatedLinksAndTexts = await axios.post("http://localhost:8080/get-urls-texts", {
                 url: firstUrl
             });
-            const secondUrlContent = await axios.post(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.getContent}`, {
+            const secondUrlContent = await axios.post("http://localhost:8080/get-content", {
                 url: secondUrl
             });
-            const secondUrlAssicuatedLinksAndTexts = await axios.post(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.getUrlsTexts}`, {
+            const secondUrlAssicuatedLinksAndTexts = await axios.post("http://localhost:8080/get-urls-texts", {
                 url: secondUrl
             });
 
