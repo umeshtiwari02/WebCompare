@@ -4,8 +4,6 @@ import { useState } from 'react'
 import axios from 'axios';
 import ComparisonResults from './ComparisonResults';
 
-
-
 export default function MainPage() {
 
     const [firstUrl, setFirstUrl] = useState('');
@@ -19,7 +17,7 @@ export default function MainPage() {
     const handleComarisonResults = async () => {
 
         try {
-            const comparisonResults = await axios.post('http://webcompare-server-production.up.railway.app/api/compare', {
+            const comparisonResults = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/compare`, {
                 url1: firstUrl,
                 url2: secondUrl
             });
@@ -38,16 +36,16 @@ export default function MainPage() {
         setIsLoading(true); // start loading
 
         try {
-            const firstUrlContent = await axios.post('http://webcompare-server-production.up.railway.app/get-content', {
+            const firstUrlContent = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/get-content`, {
                 url: firstUrl
             });
-            const firstUrlAssicuatedLinksAndTexts = await axios.post('http://webcompare-server-production.up.railway.app/get-urls-texts', {
+            const firstUrlAssicuatedLinksAndTexts = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/get-urls-texts`, {
                 url: firstUrl
             });
-            const secondUrlContent = await axios.post('http://webcompare-server-production.up.railway.app/get-content', {
+            const secondUrlContent = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/get-content`, {
                 url: secondUrl
             });
-            const secondUrlAssicuatedLinksAndTexts = await axios.post('http://webcompare-server-production.up.railway.app/get-urls-texts', {
+            const secondUrlAssicuatedLinksAndTexts = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/get-urls-texts`, {
                 url: secondUrl
             });
 
@@ -82,106 +80,6 @@ export default function MainPage() {
             setIsLoading(false); // stop loading
         }
     }
-
-
-    // return (
-    //     <div className="flex flex-col">
-    //         <h4 className="text-center text-sm text-gray-400">Comparing between two different URLs.</h4>
-
-    //         <div className="flex flex-col md:flex-row justify-center items-center gap-4 mt-5">
-    //             <InputField value={firstUrl} onChange={(e) => setFirstUrl(e.target.value)} placeholder="Enter first url here" />
-    //             <InputField value={secondUrl} onChange={(e) => setSecondUrl(e.target.value)} placeholder="Enter second url here" />
-    //             <Button firstUrl={firstUrl} secondUrl={secondUrl} onClick={handleSubmit}>Submit</Button>
-    //         </div>
-
-    //         <br />
-    //         <br />
-
-    //         {
-    //             showData && (firstUrl && secondUrl) ? <>
-    //                 <div className='flex flex-col md:flex-row justify-around items-center gap-4 mt-5'>
-    //                     {
-
-    //                         !responses[0]?.startsWith('Error') && !responses[2]?.startsWith('Error')
-    //                             ?
-    //                             <ShowUrlsButton isLoading={isLoading} onClick={() => setShowUrls(!showUrls)}>{showUrls ? "Hide Associated Urls" : "Show Associated Urls"}</ShowUrlsButton>
-    //                             :
-    //                             ""
-    //                     }
-    //                 </div>
-
-    //                 {isLoading ? (
-    //                     <p className="min-h-[50vh] flex justify-center items-center">Processing your request...</p>
-    //                 ) : (
-    //                     <div className="flex flex-col xl:flex-row gap-4 w-full">
-    //                         {/* First URL Section */}
-    //                         <div className="w-full xl:w-1/2 p-2">
-    //                             <h4 className="font-semibold mb-2">First url main content</h4>
-    //                             <p className="bg-gray-300 p-4 rounded-md mb-4 text-sm md:text-base whitespace-pre-line">{responses[0]}</p>
-
-    //                             {
-    //                                 showUrls && <>
-
-    //                                     <div className="p-4 bg-gray-200 rounded-lg">
-    //                                         <h3 className="font-medium mb-3">Associated Links of First URL</h3>
-    //                                         <div className="space-y-2">
-    //                                             {responses[1].map((link, index) => (
-    //                                                 <a
-    //                                                     key={index}
-    //                                                     href={link}
-    //                                                     target="_blank"
-    //                                                     rel="noopener noreferrer"
-    //                                                     className="block px-3 py-2 bg-white rounded border border-gray-200 hover:border-blue-300 hover:bg-blue-50 text-blue-600 hover:text-blue-800 transition-colors"
-    //                                                 >
-    //                                                     {link}
-    //                                                 </a>
-    //                                             ))}
-    //                                         </div>
-    //                                     </div>
-    //                                 </>
-    //                             }
-    //                         </div>
-
-
-
-    //                         {/* Second URL Section */}
-    //                         <div className="w-full xl:w-1/2 p-2">
-    //                             <h4 className="font-semibold mb-2">Second url main content</h4>
-    //                             <p className="bg-gray-300 p-4 rounded-md mb-4 text-sm md:text-base whitespace-pre-line">{responses[2]}</p>
-
-    //                             {
-    //                                 showUrls && <>
-
-    //                                     <div className="p-4 bg-gray-200 rounded-lg">
-    //                                         <h3 className="font-medium mb-3">Associated Links of Second URL</h3>
-    //                                         <div className="space-y-2">
-    //                                             {responses[3].map((link, index) => (
-    //                                                 <a
-    //                                                     key={index}
-    //                                                     href={link}
-    //                                                     target="_blank"
-    //                                                     rel="noopener noreferrer"
-    //                                                     className="block px-3 py-2 bg-white rounded border border-gray-200 hover:border-blue-300 hover:bg-blue-50 text-blue-600 hover:text-blue-800 transition-colors"
-    //                                                 >
-    //                                                     {link}
-    //                                                 </a>
-    //                                             ))}
-    //                                         </div>
-    //                                     </div>
-    //                                 </>
-    //                             }
-    //                         </div>
-
-    //                     </div>
-    //                 )}
-    //             </>
-    //                 :
-    //                 <div className='min-h-[50vh] flex justify-center items-center'>
-    //                     You will get the data here after you enter urls
-    //                 </div>
-    //         }
-    //     </div>
-    // )
 
     return (
         <div className="flex flex-col dark:bg-gray-900">
