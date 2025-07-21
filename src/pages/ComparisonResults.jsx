@@ -1,5 +1,9 @@
+import { useState } from "react";
 
 const ComparisonResults = ({ data }) => {
+
+    const [showLinks, setShowLinks] = useState(false);
+
     return (
         <div className="m-3 mt-12 p-3 bg-gray-200 dark:bg-gray-800 rounded-lg shadow-md transition-colors duration-200">
             <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 border-b mb-2 pb-2 dark:border-gray-700">
@@ -108,28 +112,47 @@ const ComparisonResults = ({ data }) => {
             <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg transition-colors duration-200">
                 <h3 className="font-medium text-gray-700 dark:text-gray-300">Common Links</h3>
                 {(data?.commonLinks?.length ?? 0) > 0 ? (
-                    <ul className="space-y-2">
-                        {data.commonLinks.map((link, index) => (
-                            <li key={index} className="flex items-start">
-                                <svg
-                                    className="w-4 h-4 mt-1 mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                                </svg>
-                                <a
-                                    href={link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-blue-600 dark:text-blue-400 hover:underline break-all"
-                                >
-                                    {link}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
+                    <>
+                        <button
+                            onClick={() => setShowLinks(!showLinks)}
+                            className="flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-2"
+                        >
+                            {showLinks ? 'Hide Common Links' : 'Show Common Links'}
+                            <svg
+                                className={`w-4 h-4 ml-1 transition-transform ${showLinks ? 'rotate-180' : ''}`}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        {showLinks && (
+                            <ul className="space-y-2">
+                                {data.commonLinks.map((link, index) => (
+                                    <li key={index} className="flex items-start">
+                                        <svg
+                                            className="w-4 h-4 mt-1 mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                        </svg>
+                                        <a
+                                            href={link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-600 dark:text-blue-400 hover:underline break-all"
+                                        >
+                                            {link}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </>
                 ) : (
                     <p className="text-gray-500 dark:text-gray-400">No common links found</p>
                 )}
