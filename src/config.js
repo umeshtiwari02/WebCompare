@@ -1,9 +1,9 @@
 const API_CONFIG = {
-    baseUrl: import.meta.env.VITE_API_BASE_UR,
+    baseUrl: import.meta.env.VITE_API_BASE_URL,
     endpoints: {
         compare: '/api/compare',
-        getUrlsTexts: '/api/get-urls-texts',
-        getContent: '/api/analyze'
+        getUrlsTexts: '/get-urls-texts',
+        getContent: '/get-content'
     }
 };
 
