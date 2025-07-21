@@ -6,6 +6,8 @@ import ComparisonResults from './ComparisonResults';
 
 export default function MainPage() {
 
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
     const [firstUrl, setFirstUrl] = useState('');
     const [secondUrl, setSecondUrl] = useState('');
     const [responses, setResponses] = useState([]);
@@ -17,7 +19,7 @@ export default function MainPage() {
     const handleComarisonResults = async () => {
 
         try {
-            const comparisonResults = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/compare`, {
+            const comparisonResults = await axios.post(`${apiBaseUrl}/api/compare`, {
                 url1: firstUrl,
                 url2: secondUrl
             });
@@ -36,16 +38,16 @@ export default function MainPage() {
         setIsLoading(true); // start loading
 
         try {
-            const firstUrlContent = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/get-content`, {
+            const firstUrlContent = await axios.post(`${apiBaseUrl}/get-content`, {
                 url: firstUrl
             });
-            const firstUrlAssicuatedLinksAndTexts = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/get-urls-texts`, {
+            const firstUrlAssicuatedLinksAndTexts = await axios.post(`${apiBaseUrl}/get-urls-texts`, {
                 url: firstUrl
             });
-            const secondUrlContent = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/get-content`, {
+            const secondUrlContent = await axios.post(`${apiBaseUrl}/get-content`, {
                 url: secondUrl
             });
-            const secondUrlAssicuatedLinksAndTexts = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/get-urls-texts`, {
+            const secondUrlAssicuatedLinksAndTexts = await axios.post(`${apiBaseUrl}/get-urls-texts`, {
                 url: secondUrl
             });
 
