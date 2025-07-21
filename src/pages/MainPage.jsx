@@ -9,7 +9,7 @@ export default function MainPage() {
     const [firstUrl, setFirstUrl] = useState('');
     const [secondUrl, setSecondUrl] = useState('');
     const [responses, setResponses] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [showUrls, setShowUrls] = useState(false);
     const [showData, setShowData] = useState(false);
     const [comparisonData, setComparisonData] = useState([]);
@@ -88,7 +88,7 @@ export default function MainPage() {
             <div className="flex flex-col md:flex-row justify-center items-center gap-4 mt-6">
                 <InputField value={firstUrl} onChange={(e) => setFirstUrl(e.target.value)} placeholder="Enter first url here" />
                 <InputField value={secondUrl} onChange={(e) => setSecondUrl(e.target.value)} placeholder="Enter second url here" />
-                <Button firstUrl={firstUrl} secondUrl={secondUrl} onClick={handleSubmit}>Submit</Button>
+                <Button isLoading={isLoading} firstUrl={firstUrl} secondUrl={secondUrl} onClick={handleSubmit}>Submit</Button>
             </div>
 
             <br />

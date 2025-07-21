@@ -1,10 +1,10 @@
 
-export default function Button({ children, onClick, firstUrl, secondUrl }) {
+export default function Button({ children, onClick, firstUrl, secondUrl, isLoading }) {
     return (
         <>
             <button type="submit"
                 onClick={onClick}
-                disabled={!firstUrl || !secondUrl}
+                disabled={!firstUrl || !secondUrl || isLoading}
                 className='
                 bg-blue-500
                 hover:bg-blue-700
